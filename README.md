@@ -1,6 +1,6 @@
 # wisp-db-builder
 
-A small fluent query builder plugin for the [Wisp](../wisp) PHP micro-framework's
+A small fluent query builder plugin for the [Wisp](https://github.com/tlek-tech/wisp) PHP micro-framework's
 `Wisp\DB` class.
 
 Adds `select()`, `where()`, `limit()`, `get()`, `first()`, `insert()`, `update()`, and
