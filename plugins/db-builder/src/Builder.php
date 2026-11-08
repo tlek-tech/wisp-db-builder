@@ -430,8 +430,14 @@ class Builder {
 
     /**
      * Add a "having" clause.
+     *
+     * @param string|Expression $column
+     * @param string|null $operator
+     * @param mixed $value
+     * @param string $boolean
+     * @return self
      */
-    public function having(string|Expression $column, ?string $operator = null, $value = null, string $boolean = 'and'): self {
+    public function having($column, ?string $operator = null, $value = null, string $boolean = 'and'): self {
         if (func_num_args() === 2) {
             $value = $operator;
             $operator = '=';
@@ -449,8 +455,13 @@ class Builder {
 
     /**
      * Add an "or having" clause.
+     *
+     * @param string|Expression $column
+     * @param string|null $operator
+     * @param mixed $value
+     * @return self
      */
-    public function orHaving(string|Expression $column, ?string $operator = null, $value = null): self {
+    public function orHaving($column, ?string $operator = null, $value = null): self {
         return $this->having($column, $operator, $value, 'or');
     }
 
@@ -787,8 +798,12 @@ class Builder {
 
     /**
      * Insert a new record and get the ID.
+     *
+     * @param array $values
+     * @param string|null $sequence
+     * @return string|int
      */
-    public function insertGetId(array $values, ?string $sequence = null): string|int {
+    public function insertGetId(array $values, ?string $sequence = null) {
         $this->insert($values);
         $id = DB::lastInsertId($sequence);
         return is_numeric($id) ? (int)$id : $id;
@@ -829,8 +844,13 @@ class Builder {
 
     /**
      * Increment a column's value by a given amount.
+     *
+     * @param string $column
+     * @param int|float $amount
+     * @param array $extra
+     * @return int
      */
-    public function increment(string $column, int|float $amount = 1, array $extra = []): int {
+    public function increment(string $column, $amount = 1, array $extra = []): int {
         $wrapped = $this->getGrammar()->wrap($column);
         $extra[$column] = new Expression("{$wrapped} + " . (float)$amount);
         return $this->update($extra);
@@ -838,8 +858,13 @@ class Builder {
 
     /**
      * Decrement a column's value by a given amount.
+     *
+     * @param string $column
+     * @param int|float $amount
+     * @param array $extra
+     * @return int
      */
-    public function decrement(string $column, int|float $amount = 1, array $extra = []): int {
+    public function decrement(string $column, $amount = 1, array $extra = []): int {
         $wrapped = $this->getGrammar()->wrap($column);
         $extra[$column] = new Expression("{$wrapped} - " . (float)$amount);
         return $this->update($extra);

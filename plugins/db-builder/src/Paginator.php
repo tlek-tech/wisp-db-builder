@@ -107,7 +107,13 @@ class Paginator implements IteratorAggregate, Countable, JsonSerializable {
         ];
     }
 
-    public function jsonSerialize(): mixed {
+    /**
+     * Specify data which should be serialized to JSON.
+     *
+     * @return array
+     */
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize() {
         return $this->toArray();
     }
 

@@ -179,6 +179,8 @@ assert_test("Paginate page 1 has 2 items", count($page1->items()) === 2);
 assert_test("Paginate total is 4", $page1->total() === 4);
 assert_test("Paginate lastPage is 2", $page1->lastPage() === 2);
 assert_test("Paginate hasMorePages is true", $page1->hasMorePages() === true);
+$jsonSerialized = json_encode($page1);
+assert_test("Paginate jsonSerialize works properly", is_string($jsonSerialized) && strpos($jsonSerialized, '"current_page":1') !== false);
 $page2 = DB::table('users')->orderBy('id', 'asc')->paginate(2, 2);
 assert_test("Paginate page 2 hasMorePages is false", $page2->hasMorePages() === false);
 
@@ -207,7 +209,7 @@ assert_test("updateOrInsert inserts when not found", DB::table('users')->where('
 
 // Test toSql & getBindings
 $sampleQuery = DB::table('users')->where('status', 'active')->whereIn('age', [20, 25])->orderBy('id', 'desc')->limit(5);
-assert_test("toSql() generates valid SQL string", str_contains($sampleQuery->toSql(), 'SELECT * FROM "users" WHERE "status" = ? AND "age" IN (?, ?) ORDER BY "id" DESC LIMIT 5'));
+assert_test("toSql() generates valid SQL string", strpos($sampleQuery->toSql(), 'SELECT * FROM "users" WHERE "status" = ? AND "age" IN (?, ?) ORDER BY "id" DESC LIMIT 5') !== false);
 assert_test("getBindings() returns correct bindings", $sampleQuery->getBindings() === ['active', 20, 25]);
 
 // Test Delete

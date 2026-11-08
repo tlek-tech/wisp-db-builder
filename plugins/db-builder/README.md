@@ -10,6 +10,7 @@ Replicates the developer experience and method chaining of Laravel's Query Build
 
 - **Laravel-Compatible Fluent API**: Intuitive, expressive, and familiar method signatures.
 - **Driver-Aware Grammar**: Safe identifier quoting (backticks for MySQL, double-quotes for SQLite and PostgreSQL).
+- **PHP 7.4+ & PHP 8.x Compatible**: Full support for PHP 7.4 and PHP 8.0+.
 - **Zero Dependencies**: Pure PHP, no bloated external packages.
 - **100% Backward Compatible**: Seamlessly integrates with `wisp-mvc` Active Record models (`Product::where(...)`).
 - **Comprehensive Querying**:

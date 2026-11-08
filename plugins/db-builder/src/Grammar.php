@@ -22,8 +22,11 @@ class Grammar {
 
     /**
      * Wrap a value in keyword identifiers (backtick for mysql, double quotes for sqlite/postgres).
+     *
+     * @param string|Expression $value
+     * @return string
      */
-    public function wrap(string|Expression $value): string {
+    public function wrap($value): string {
         if ($value instanceof Expression) {
             return $value->getValue();
         }
@@ -35,7 +38,7 @@ class Grammar {
         }
 
         // If the value contains a dot (e.g., 'table.column')
-        if (str_contains($value, '.')) {
+        if (strpos($value, '.') !== false) {
             $segments = explode('.', $value);
             return implode('.', array_map([$this, 'wrapValue'], $segments));
         }
